@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-04-16T16:30:58
+# Project created by QtCreator 2019-06-03T23:32:24
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Graph
+TARGET = newG
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -25,19 +25,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-    edge.cpp \
         main.cpp \
-        mainwindow.cpp \
-    graph.cpp \
-    mescene.cpp \
-    point.cpp
+        mainwindow.cpp
 
 HEADERS += \
-    edge.h \
-        mainwindow.h \
-    graph.h \
-    mescene.h \
-    point.h
+        mainwindow.h
 
 FORMS += \
         mainwindow.ui
