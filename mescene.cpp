@@ -36,7 +36,7 @@ mescene::mescene(qreal x,qreal y,qreal w,qreal h,QObject* p) : QGraphicsScene(x,
 void mescene::mouseMoveEvent (QGraphicsSceneMouseEvent *e){//переопределенная функция обработки движений мыши с зажатой ЛКМ
     name->setVisible(false);
     QPointF p = e->scenePos();//координаты относительно левого верхнего угла сцены
-    int index = g.IndexOf(Point(p.x()-5,p.y()-5,""));//ищем вершину в графе над которой находится курсор
+    int index = g.IndexOf(Point(p.x()-5, p.y()-5,""));//ищем вершину в графе над которой находится курсор
     if(e->buttons() == Qt::LeftButton){
         if(action != MOVE)
             mousePressEvent(e);//если выбран не мув вызываем обработку обычных кликов
@@ -113,9 +113,7 @@ void mescene::mousePressEvent (QGraphicsSceneMouseEvent *e){//переопред
             }
             break;
         case DEL_EDGE:{//удаление ребра
-            int cx = p.x()-5;
-            int cy = p.y()-5;
-            g.RemoveEdge(Point(cx,cy,""));
+            g.RemoveEdge(Point(p.x()-5, p.y()-5,""));
             Change = true;
             break;
         }
