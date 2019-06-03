@@ -2,7 +2,6 @@
 #define GRAPH_H
 
 #include "edge.h"
-#include "point.h"
 #include <QList>
 class Graph
 {
@@ -14,8 +13,10 @@ private:
 
     void DelMatrix();//метод вычищающий матрицу
     void zero();//метод заполняющий матрицу INT_MAX нужно для Деикстры
+
     double ygol_meg_3_Point (const Point& a, const Point& b, const Point& c);//расчитывает угол между 3 Point для RemoveEdge()
-    void Dijcstra(const int& st,bool* visited,int* D,const int& Size,QVector <QVector <Edge>>& ot);//Сам Деикстра
+
+    void Dijcstra(const int& st,bool* visited,int* D,const int& Size);//Сам Деикстра
     void Ford_Bellman(const int& st,int* D,const int& Size);
     void Way(int& s, int& f, int iskomaya,int *way,bool *include,const int& size,QVector<QVector<int>>& ways,int& v);
 
@@ -31,17 +32,19 @@ public:
 
             int IndexOf(Point _p);//совой indexof тк листовый не видит перегрузку == для Point
             int IndexOf(Point* beg,Point* end);
+            int IndexOf(int x,int y);
+
             void UpDate();
 
-            Point& operator [](const int& i){return p[i];}//перегрузка оператора [] возвращает [i] вершину
-            Edge& LastEdge(){return r[r.length()-1];}//возвращает последнее ребро
-            const Edge& retEdge(const int& i){return r[i];}//возвращает [i] ребро
+            Point& operator [](const int& i) {return p[i];}//перегрузка оператора [] возвращает [i] вершину
+            Edge& LastEdge() {return r[r.length()-1];}//возвращает последнее ребро
+            const Edge& retEdge (const int& i) {return r[i];}//возвращает [i] ребро
 
             void RemovePoint(const int& i);//удаляет [i] вершину и все ребра связаные с этой вершиной
             void RemoveEdge(const Point& l);//удаляет ребро на котором лежит Point& l
             void RemoveEdge(const int& i){r.removeAt(i);}//удаляет [i] ребро
             bool DelCopy(Edge& _r);//метод удаляющий ребро если такое уже существует
-            /*мой граф не ориентированный этот метод присекает ребра вида a->b b-> a*/
+            /*мой граф не ориентированный этот метод присекает ребра вида a->b   b->a*/
 
             void Clear();//очищение графа удаление всех ребер и вершин
             ~Graph(){Clear();delete this;}//деструктор

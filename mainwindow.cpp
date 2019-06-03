@@ -1,94 +1,96 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     //создание и установка нашей сцены
-    scene= new mescene(0,40,605,485,this);
+    scene= new mescene(0, 40, 605, 485, this);
     ui->graphicsView->setScene(scene);
     //связывание меню и их слотов
-    Point=new QAction("Вершину", this);
-    connect(Point, SIGNAL(triggered()), this, SLOT(ClickPoint()));
+    A_Point = new QAction("Вершину", this);
+    connect(A_Point, SIGNAL(triggered()), this, SLOT(ClickPoint()));
 
-    Edge=new QAction("Ребро", this);
-    connect(Edge, SIGNAL(triggered()), this, SLOT(ClickEdge()));
+    A_Edge = new QAction("Ребро", this);
+    connect(A_Edge, SIGNAL(triggered()), this, SLOT(ClickEdge()));
 
-    DelP=new QAction("Вершину",this);
-    connect(DelP,SIGNAL(triggered()),this,SLOT(DelPoint()));
+    A_DelP = new QAction("Вершину", this);
+    connect(A_DelP, SIGNAL(triggered()), this, SLOT(DelPoint()));
 
-    DelE=new QAction("Ребро",this);
-    connect(DelE,SIGNAL(triggered()),this,SLOT(DelEdge()));
+    A_DelE = new QAction("Ребро", this);
+    connect(A_DelE, SIGNAL(triggered()), this, SLOT(DelEdge()));
 
-    Al=new QAction("расчет расстояния от одной до всех остальных",this);
-    connect(Al,SIGNAL(triggered()),this,SLOT(D()));
+    A_Alg = new QAction("расчет расстояния от одной до всех остальных", this);
+    connect(A_Alg, SIGNAL(triggered()), this, SLOT(AlgAction()));
 
-    MOve=new QAction(tr("&Двигать Вершины"),this);
-    connect(MOve,SIGNAL(triggered()),this,SLOT(Move()));
+    A_Move = new QAction(tr("&Двигать Вершины"), this);
+    connect(A_Move, SIGNAL(triggered()), this, SLOT(MoveAction()));
 
-    Cle=new QAction(tr("&Очистить Граф"),this);
-    connect(Cle,SIGNAL(triggered()),this,SLOT(Clear()));
+    A_Cle = new QAction(tr("&Очистить Граф"), this);
+    connect(A_Cle, SIGNAL(triggered()), this, SLOT(Clear()));
 
-    Way=new QAction("Найти путь между Вершинами",this);
-    connect(Way,SIGNAL(triggered()),this,SLOT(WAy()));
+    A_Way = new QAction("Найти путь между Вершинами", this);
+    connect(A_Way, SIGNAL(triggered()), this, SLOT(WayAction()));
 
     //создание меню
     //создания
-    cre=ui->menuBar->addMenu(tr("&Создать"));
-    cre->addAction(Point);
-    cre->addAction(Edge);
+    cre = ui->menuBar->addMenu(tr("&Создать"));
+    cre->addAction(A_Point);
+    cre->addAction(A_Edge);
     //удаления
-    del=ui->menuBar->addMenu(tr("&Удалить"));
-    del->addAction(DelP);
-    del->addAction(DelE);
+    del = ui->menuBar->addMenu(tr("&Удалить"));
+    del->addAction(A_DelP);
+    del->addAction(A_DelE);
     //алгоритмы
-    alg=ui->menuBar->addMenu(tr("&Алгоритмы"));
-    alg->addAction(Al);
-    alg->addAction(Way);
+    alg = ui->menuBar->addMenu(tr("&Алгоритмы"));
+    alg->addAction(A_Alg);
+    alg->addAction(A_Way);
     //движение и очистку пришлось засунуть в oter
-    ui->menuBar->addAction(MOve);
-    ui->menuBar->addAction(Cle);
+    ui->menuBar->addAction(A_Move);
+    ui->menuBar->addAction(A_Cle);
 }
 
 MainWindow::~MainWindow()
 {
-    mescene* s=reinterpret_cast<mescene*>(scene);
+    mescene* s = reinterpret_cast<mescene*>(scene);
     s->DelL();
     s->Clear();
+    delete A_Point; delete A_Edge; delete A_DelP; delete A_DelE; delete A_Alg; delete A_Move; delete A_Way; delete A_Cle;
+    delete cre; delete del; delete alg;
     delete scene;
     delete ui;
 }
 
 void MainWindow::ClickPoint(){//функция для выбора создания вершин
-    mescene* s=reinterpret_cast<mescene*>(scene);
+    mescene* s = reinterpret_cast<mescene*>(scene);
     s->CreatePoint();
 }
 void MainWindow::ClickEdge(){//функция для выбора создания ребер
-    mescene* s=reinterpret_cast<mescene*>(scene);
+    mescene* s = reinterpret_cast<mescene*>(scene);
     s->CreateEdge();
 }
 void MainWindow::DelPoint(){//функция для выбора удаления вершин
-    mescene* s=reinterpret_cast<mescene*>(scene);
+    mescene* s = reinterpret_cast<mescene*>(scene);
     s->DelPoint();
 }
 void MainWindow::DelEdge(){//функция для выбора удаления ребер
-    mescene* s=reinterpret_cast<mescene*>(scene);
+    mescene* s = reinterpret_cast<mescene*>(scene);
     s->DelEdge();
 }
-void MainWindow::D(){//функция для выбора вершины начала Деикстры
-    mescene* s=reinterpret_cast<mescene*>(scene);
-    s->D();
+void MainWindow::AlgAction(){//функция для выбора вершины начала Деикстры
+    mescene* s = reinterpret_cast<mescene*>(scene);
+    s->Find();
 }
 void MainWindow::Clear(){
-    mescene* s=reinterpret_cast<mescene*>(scene);
+    mescene* s = reinterpret_cast<mescene*>(scene);
     s->Clear();
 }
-void MainWindow::Move(){//функция для выбора перемещения вершин
-    mescene* s=reinterpret_cast<mescene*>(scene);
+void MainWindow::MoveAction(){//функция для выбора перемещения вершин
+    mescene* s = reinterpret_cast<mescene*>(scene);
     s->MoveP();
 }
 
-void MainWindow::WAy()
+void MainWindow::WayAction()
 {
-    mescene* s=reinterpret_cast<mescene*>(scene);
-    s->PYT();
+    mescene* s = reinterpret_cast<mescene*>(scene);
+    s->Way();
 }

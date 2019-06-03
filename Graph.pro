@@ -25,19 +25,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    edge.cpp \
         main.cpp \
         mainwindow.cpp \
     graph.cpp \
     mescene.cpp \
-    rebro.cpp \
     point.cpp
 
 HEADERS += \
+    edge.h \
         mainwindow.h \
     graph.h \
     mescene.h \
-    point.h \
-    rebro.h
+    point.h
 
 FORMS += \
         mainwindow.ui

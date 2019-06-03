@@ -1,60 +1,49 @@
 #ifndef MESCENE_H
 #define MESCENE_H
-#include "graph.h"
+
 #include <QGraphicsScene>
 #include <QSpinBox>
 #include <QLabel>
 #include <QComboBox>
+#include <QLineEdit>
+#include "graph.h"
+
 class mescene: public QGraphicsScene
 {
     Graph g;//наш граф
-    int Beg;
-    bool BegEdge=false,Change=false;//началии мы ребро?
-    int action=none;//выбранное действие
-    enum{createPoint,createEdge,Poisk,delPoint,delEdge,none,Move,PyT};//перечень действий
-    QVector<QLabel*> LabelD;//вектор лэйблов для подписи растояний после Деикстры
-    QSpinBox* v;//спинбоксы для выбора размеров точки и веса ребра
-    QComboBox* algv;
-    QLabel* podpis;
+    int Beg;//запоминает индекс вершины начала пути
+    bool BegEdge = false;
+    bool Change = false;//началии мы ребро? и были ли изменения
+    int action = NONE;//выбранное действие
+    enum {CRE_POINT,CRE_EDGE,FIND,DEL_POINT,DEL_EDGE,NONE,MOVE,WAY};//перечень действий
+    QVector <QLabel*> LabelD;//вектор лэйблов для подписи растояний после Деикстры
+    QSpinBox *v;//спинбокс для выбора размеров точки и веса ребра
+    QComboBox *algv;//комбобокс для выюора алгоритма
+    QLabel *podpis;
+    QLabel *name;//лэйблы для информации и подписи имен вершин и веса ребер
+    QLineEdit *text;//лайнэдит для выбора имени вершины
 
-    void mouseMoveEvent (QGraphicsSceneMouseEvent *e);//переопределенная функция обработки движений мыши с зажатой ЛКМ
+    void mouseMoveEvent (QGraphicsSceneMouseEvent *e);//переопределенная функция обработки движений мыши с зажатой ЛКМ и Hover событий
     void mousePressEvent (QGraphicsSceneMouseEvent *e);//переопределенная функция обработки кликов ЛКМ
+
 public:
-    mescene():QGraphicsScene(){
-        v=new QSpinBox(reinterpret_cast<QWidget*>(this->parent()));
-        algv=new QComboBox(reinterpret_cast<QWidget*>(this->parent()));
-        podpis= new QLabel(reinterpret_cast<QWidget*>(this->parent()));
-        v->setVisible(false);
-        algv->setVisible(false);
-        podpis->setVisible(false);
-        algv->addItem("Ford_Bellman",QVariant(0));
-        algv->addItem("Dijcstra",QVariant(1));
-        algv->setItemData(0,algv->itemData(0));
-    }//пустой конструктор
-    mescene(qreal x,qreal y,qreal w,qreal h,QObject* p):QGraphicsScene(x,y,w,h,p){
-        v=new QSpinBox(reinterpret_cast<QWidget*>(this->parent()));
-        algv=new QComboBox(reinterpret_cast<QWidget*>(this->parent()));
-        podpis= new QLabel(reinterpret_cast<QWidget*>(this->parent()));
-        v->setVisible(false);
-        algv->setVisible(false);
-        podpis->setVisible(false);
-        algv->addItem("Ford_Bellman",QVariant(0));
-        algv->addItem("Dijcstra",QVariant(1));
-        algv->setItemData(0,algv->itemData(0));
-    }//полный конструктор
+    mescene();//пустой конструктор
+    mescene(qreal x, qreal y, qreal w, qreal h, QObject* p);//полный конструктор
 
     void Draw();//метод отрисовки графа
     void Clear();//метод очищающий граф
 
-    void CreatePoint();//метод перключает action и создает спинбокс для выбора размера вершин
-    void CreateEdge();//метод перключает action и создает спинбокс для выбора веса ребра
-    void DelPoint();//метод перключает action
-    void DelEdge();//метод перключает action
-    void D();//метод перключает action
-    void MoveP();//метод перключает action
+    //методы переключающие action
+    void DelPoint();
+    void DelEdge();
+    void MoveP();
+    void Way();
+    void CreatePoint();//создает спинбокс для выбора размера вершин и лайнэдит для выбора имен
+    void CreateEdge();//создает спинбокс для выбора веса ребра
+    void Find();//создает комбобокс для выбора алгоритма
+
     void DelL();//метод удаляющий лишнее (спинбоксы и лэйблы)
-    void PYT();
-    ~mescene(){DelL(); delete v;delete algv;delete podpis;}
+    ~mescene(){DelL(); delete v; delete algv; delete podpis; delete name; delete text;}
 };
 
 #endif // MESCENE_H
