@@ -1,6 +1,6 @@
 #ifndef REBRO_H
 #define REBRO_H
-#include "point.h"
+#include "point/point.h"
 #include <QGraphicsLineItem>
 #include <QPen>
 class Edge

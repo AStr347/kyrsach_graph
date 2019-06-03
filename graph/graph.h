@@ -1,7 +1,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include "edge.h"
+#include "edge/edge.h"
 #include <QList>
 class Graph
 {

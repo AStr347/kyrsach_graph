@@ -1,6 +1,6 @@
 #include "mescene.h"
 #include <QGraphicsSceneMouseEvent>
-#include "point.cpp"
+
 mescene::mescene() : QGraphicsScene(){
     v = new QSpinBox(reinterpret_cast<QWidget*>(this->parent()));
     algv = new QComboBox(reinterpret_cast<QWidget*>(this->parent()));

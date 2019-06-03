@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "mescene.h"
+#include "mescene/mescene.h"
 namespace Ui {
 class MainWindow;
 }

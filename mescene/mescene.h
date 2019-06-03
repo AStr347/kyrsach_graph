@@ -6,7 +6,7 @@
 #include <QLabel>
 #include <QComboBox>
 #include <QLineEdit>
-#include "graph.h"
+#include "graph/graph.h"
 
 class mescene: public QGraphicsScene
 {
