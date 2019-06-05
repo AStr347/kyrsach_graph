@@ -24,6 +24,7 @@ class mescene: public QGraphicsScene
     QLineEdit *text;//лайнэдит для выбора имени вершины
 
     void mouseMoveEvent (QGraphicsSceneMouseEvent *e);//переопределенная функция обработки движений мыши с зажатой ЛКМ и Hover событий
+
     void mousePressEvent (QGraphicsSceneMouseEvent *e);//переопределенная функция обработки кликов ЛКМ
 
 public:
@@ -46,4 +47,24 @@ public:
     ~mescene(){DelL(); delete v; delete algv; delete podpis; delete name; delete text;}
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*todo: mmmmmmmmmmmmmmmmmmmmmmmmmm*/
 #endif // MESCENE_H
